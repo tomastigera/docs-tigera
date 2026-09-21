@@ -13844,7 +13844,6 @@ Get visibility into the network activity at the HostEndpoint level using Calico 
 **Limitations**
 
 - HostEndpoint reporting is only supported on Kubernetes nodes.
-- Flow logs on ApplyOnForward policies are currently not supported. As a result, a policy blocking traffic at the host level from forwarding to a workload endpoint would not result in a flow log from the host endpoint.
 
 ## How to[​](#how-to)
 
@@ -41064,21 +41063,21 @@ That said, there are a few design rules for BGP that need to be kept in mind whe
 
 These considerations are:
 
-AS continuity
+- AS continuity
 
-: or *AS puddling* Any router in an AS *must* be able to communicate with any other router in that same AS without transiting another AS.
+  or *AS puddling* Any router in an AS *must* be able to communicate with any other router in that same AS without transiting another AS.
 
-Next hop behavior
+- Next hop behavior
 
-: By default BGP routers do not change the *next hop* of a route if it is peering with another router in its same AS. The inverse is also true, a BGP router will set itself as the *next hop* of a route if it is peering with a router in another AS.
+  By default BGP routers do not change the *next hop* of a route if it is peering with another router in its same AS. The inverse is also true, a BGP router will set itself as the *next hop* of a route if it is peering with a router in another AS.
 
-Route reflection
+- Route reflection
 
-: All BGP routers in a given AS must *peer* with all the other routers in that AS. This is referred to a *complete BGP mesh*. This can become problematic as the number of routers in the AS scales up. The use of *route reflectors* reduce the need for the complete BGP mesh. However, route reflectors also have scaling considerations.
+  All BGP routers in a given AS must *peer* with all the other routers in that AS. This is referred to a *complete BGP mesh*. This can become problematic as the number of routers in the AS scales up. The use of *route reflectors* reduce the need for the complete BGP mesh. However, route reflectors also have scaling considerations.
 
-Endpoints
+- Endpoints
 
-: In a Calico Cloud network, each endpoint is a route. Hardware networking platforms are constrained by the number of routes they can learn. This is usually in range of 10,000's or 100,000's of routes. Route aggregation can help, but that is usually dependent on the capabilities of the scheduler used by the orchestration software.
+  In a Calico Cloud network, each endpoint is a route. Hardware networking platforms are constrained by the number of routes they can learn. This is usually in range of 10,000's or 100,000's of routes. Route aggregation can help, but that is usually dependent on the capabilities of the scheduler used by the orchestration software.
 
 A deeper discussion of these considerations can be found in the IP Fabric Design Considerations\_ appendix.
 
@@ -41106,7 +41105,15 @@ If the AS per spine option is used, then each ToR only has to peer with each spi
 
 Within the rack, the configuration is the same for both variants, and is somewhat different than the configuration north of the ToR.
 
-Every router within the rack, which, in the case of Calico Cloud is every compute server, shares the same AS as the ToR that they are connected to. That connection is in the form of an Ethernet switching layer. Each router in the rack must be directly connected to enable the AS to remain contiguous. The ToR's *router* function is then connected to that Ethernet switching layer as well. The actual configuration of this is dependent on the ToR in use, but usually it means that the ports that are connected to the compute servers are treated as *subnet* or *segment* ports, and then the ToR's *router* function has a single interface into that subnet.
+Every router within the rack, which, in the case of Calico Cloud is every
+
+<!-- -->
+
+compute server, shares the same AS as the ToR that they are connected
+
+<!-- -->
+
+to. That connection is in the form of an Ethernet switching layer. Each router in the rack must be directly connected to enable the AS to remain contiguous. The ToR's *router* function is then connected to that Ethernet switching layer as well. The actual configuration of this is dependent on the ToR in use, but usually it means that the ports that are connected to the compute servers are treated as *subnet* or *segment* ports, and then the ToR's *router* function has a single interface into that subnet.
 
 This configuration allows each compute server to connect to each other compute server in the rack without going through the ToR router, but it will, of course, go through the ToR switching function. The compute servers and the ToR router could all be directly meshed, or a route reflector could be used within the rack, either hosted on the ToR itself, or as a virtual function hosted on one or more compute servers within the rack.
 
@@ -41182,7 +41189,13 @@ The first consideration is that an AS must be kept contiguous. This means that a
 
 A corollary of that rule is that any two administrative regions that share the same AS number, are in the same AS, even if that was not the desire of the designer. BGP has no way of identifying if an AS is local or foreign other than the AS number. Therefore re-use of an AS number for two *networks* that are not directly connected, but only connected through another *network* or AS number will not work without a lot of policy changes to the BGP routers.
 
-Another corollary of that rule is that a BGP router will not propagate a route to a peer if the route has an AS in its path that is the same AS as the peer. This prevents loops from forming in the network. The effect of this prevents two routers in the same AS from transiting another router (either in that AS or not).
+<!-- -->
+
+Another corollary of that rule is that a BGP router will not propagate a route to a peer if the route has an AS in its path that is the same AS
+
+<!-- -->
+
+as the peer. This prevents loops from forming in the network. The effect of this prevents two routers in the same AS from transiting another router (either in that AS or not).
 
 #### Next hop behavior[​](#next-hop-behavior)
 
