@@ -25605,7 +25605,6 @@ Get visibility into the network activity at the HostEndpoint level using Calico 
 **Limitations**
 
 - HostEndpoint reporting is only supported on Kubernetes nodes.
-- Flow logs on ApplyOnForward policies are currently not supported. As a result, a policy blocking traffic at the host level from forwarding to a workload endpoint would not result in a flow log from the host endpoint.
 
 ## How to[​](#how-to)
 
@@ -35211,7 +35210,7 @@ Yes. The license indicator in the web console (top right banner) turns red when 
 
 ### What happens when a license expires or is invalid?[​](#what-happens-when-a-license-expires-or-is-invalid)
 
-> **WARNING:** Although users can still log in to the web console, your deployment is no longer operational. All policy enforcement stops, except for policies in the default tier. In most cases, you will experience broken connectivity (depending on your policies in the default tier). Calico Enterprise stops reporting flow logs, DNS logs, and Calico Enterprise metrics, which affects other UI elements like Service Graph and dashboards. Although some elements may appear to work, actions are not saved, and you should regard your deployment as non-functional. We recommend that you proactively manage your license to avoid disruption.
+> **WARNING:** Calico Enterprise stops reporting flow logs, DNS logs, and Calico Enterprise metrics, which affects other UI elements like Service Graph and dashboards. Although some elements in the UI may appear to work, actions are not saved. We recommend that you proactively manage your license to avoid disruption.
 
 ### Do licenses cover free upgrades in Calico Enterprise?[​](#do-licenses-cover-free-upgrades-in-calico-enterprise)
 
@@ -36838,7 +36837,7 @@ Yes. The license indicator in the web console (top right banner) turns red when 
 
 ### What happens when a license expires or is invalid?[​](#what-happens-when-a-license-expires-or-is-invalid)
 
-> **WARNING:** Although users can still log in to the web console, your deployment is no longer operational. All policy enforcement stops, except for policies in the default tier. In most cases, you will experience broken connectivity (depending on your policies in the default tier). Calico Enterprise stops reporting flow logs, DNS logs, and Calico Enterprise metrics, which affects other UI elements like Service Graph and dashboards. Although some elements may appear to work, actions are not saved, and you should regard your deployment as non-functional. We recommend that you proactively manage your license to avoid disruption.
+> **WARNING:** Calico Enterprise stops reporting flow logs, DNS logs, and Calico Enterprise metrics, which affects other UI elements like Service Graph and dashboards. Although some elements in the UI may appear to work, actions are not saved. We recommend that you proactively manage your license to avoid disruption.
 
 ### Do licenses cover free upgrades in Calico Enterprise?[​](#do-licenses-cover-free-upgrades-in-calico-enterprise)
 
