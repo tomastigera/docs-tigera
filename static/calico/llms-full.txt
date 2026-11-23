@@ -19901,9 +19901,9 @@ Best practices for configuring Neutron subnets in Calico deployments can be foun
 
 In Calico, these roles for the Neutron subnet are preserved in their entirety. All properties associated with these Neutron subnets are preserved and remain meaningful except for:
 
-`host_routes`
+- `host_routes`
 
-: These have no effect, as the compute nodes will route traffic immediately after it egresses the VM.
+  These have no effect, as the compute nodes will route traffic immediately after it egresses the VM.
 
 ## Ports[​](#ports)
 
@@ -19911,21 +19911,21 @@ In vanilla Neutron, a port represents a connection from a VM to a single layer 2
 
 All properties on a port work as normal, except for the following:
 
-`network_id`
+- `network_id`
 
-: The network ID still controls which Neutron network the port is attached to, and therefore still controls which Neutron subnets it will be placed in. However, as per the [note above](#networks), the Neutron network that a port is placed in does not affect which machines in the deployment it can contact.
+  The network ID still controls which Neutron network the port is attached to, and therefore still controls which Neutron subnets it will be placed in. However, as per the [note above](#networks), the Neutron network that a port is placed in does not affect which machines in the deployment it can contact.
 
 ### Extended Attributes: Port Binding Attributes[​](#extended-attributes-port-binding-attributes)
 
 The `binding:host-id` attribute works as normal. The following notes apply to the other attributes:
 
-`binding:profile`
+- `binding:profile`
 
-: This is unused in Calico.
+  This is unused in Calico.
 
-`binding:vnic_type`
+- `binding:vnic_type`
 
-: This field, if used, **must** be set to `normal`. If set to any other value, Calico will not correctly function!
+  This field, if used, **must** be set to `normal`. If set to any other value, Calico will not correctly function!
 
 ## Quotas[​](#quotas)
 
